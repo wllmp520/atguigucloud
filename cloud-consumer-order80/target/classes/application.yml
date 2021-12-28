@@ -1,2 +1,12 @@
 server:
   port: 80
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true #单节点无所谓，集群必须要设置true 才能配合用ribbon 负载均衡
+    service-url:
+      #与Eureka Server交互的地址
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+spring:
+  application:
+    name: cloud-consumer-order80
