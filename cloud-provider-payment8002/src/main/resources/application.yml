@@ -1,6 +1,5 @@
 server:
-  port: 8001
-
+  port: 8002
 spring:
   application:
     name: cloud-payment-service
@@ -24,10 +23,5 @@ eureka:
       #与Eureka Server交互的地址
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
   instance:
-    instance-id: payment8001
+    instance-id: payment8002
     prefer-ip-address: true
-    #向server发送的心跳时间间隔
-    lease-renewal-interval-in-seconds: 1
-    #抹除时间
-    lease-expiration-duration-in-seconds: 10
-

@@ -2,15 +2,12 @@ package com.atguigu.springcloud.controller;
 
 import com.atguigu.springcloud.entity.CommonResult;
 import com.atguigu.springcloud.entity.Payment;
-import com.atguigu.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
+import com.atguigu.springcloud.service.PaymentService;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -22,9 +19,6 @@ public class PaymentController {
 
     @Value("${server.port}")
     private String serverPort;
-
-    @Resource
-    private DiscoveryClient discoveryClient;
 
     @PostMapping(value = "/create")
     public CommonResult create(@RequestBody Payment payment){
@@ -41,19 +35,10 @@ public class PaymentController {
     public CommonResult getPaymentById(@PathVariable long  id){
         Payment paymentById = paymentService.getPaymentById(id);
         if(Objects.nonNull(paymentById)){
+            log.info("+++++++结果成功");
             return new CommonResult(200,serverPort,paymentById);
         }else{
             return new CommonResult(201,"db22dddd222 find failed");
         }
-    }
-    @GetMapping(value = "/getdiscovery")
-    public CommonResult getdiscovery(){
-        final List<String> services = discoveryClient.getServices();
-        final List<ServiceInstance> instances = discoveryClient.getInstances("cloud-payment-service");
-        for (ServiceInstance instance :
-                instances) {
-            log.info(instance.getServiceId()+"=="+instance.getHost()+"=="+instance.getInstanceId()+"=="+instance.getPort()+"=="+instance.getUri()+"=="+instance.getScheme()+"=="+instance.getMetadata());
-        }
-        return new CommonResult(200,null,services);
     }
 }

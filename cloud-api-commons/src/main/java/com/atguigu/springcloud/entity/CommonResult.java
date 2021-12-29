@@ -20,4 +20,5 @@ public class CommonResult<T> {
     public CommonResult(int code, String message) {
         this(code,message,null);
     }
+
 }
